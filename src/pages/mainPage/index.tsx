@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { menuInfo } from "../../types/dataTypes";
 import TreeFilter from "./components/TreeFilter";
 import "./styles.css";
@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 //TreeFilter로 넘기는 Props
 export type TreeFilterProps = {
   menuInfoData?: menuInfo;
+  onSelectNode?: (key: string) => void;
 };
 
 type RootState = {
@@ -61,8 +62,54 @@ const selectNode: menuInfoDetail = {
   metadata: "metadata",
 };
 
+function findMenuNodeByKey(
+  node: menuInfo | undefined,
+  key: string | null
+): menuInfoDetail | null {
+  if (!node || !key) {
+    return null;
+  }
+
+  if (node.key === key) {
+    return {
+      key: node.key,
+      id: node.id ?? "",
+      path: node.path ?? "",
+      name: node.name ?? "",
+      icon: node.icon ?? "",
+      visible: node.visible ?? -1,
+      type: node.type ?? -1,
+      permissionLevel: node.permissionLevel ?? -1,
+      initialData: node.initialData ?? "",
+      helpPath: node.helpPath ?? "",
+      shortcutName: node.shortcutName ?? "",
+      hideShortcut: String(node.hideShortcut ?? ""),
+      flags: node.flags ?? "",
+      searchName: node.searchName ?? "",
+      externalPath: node.externalPath ?? "",
+      metadata: node.metadata ?? "",
+    };
+  }
+
+  for (const child of node.childInfo ?? []) {
+    const found = findMenuNodeByKey(child, key);
+    if (found) {
+      return found;
+    }
+  }
+
+  return null;
+}
+
 export default function MainPage() {
   const data = useSelector((state: RootState) => state.mainTrees.treeData);
+
+  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+
+  const selectedNode = useMemo(
+    () => findMenuNodeByKey(data, selectedKey) ?? selectNode,
+    [data, selectedKey]
+  );
 
   return (
     <div className="main-container">
@@ -75,11 +122,11 @@ export default function MainPage() {
         style={{ display: "grid", gridTemplateColumns: "1fr 2fr" }}
       >
         <div className="sidebar">
-          <TreeFilter menuInfoData={data} />
+          <TreeFilter menuInfoData={data} onSelectNode={setSelectedKey} />
         </div>
         <div className="detail-view">
           <div className="detail-view-content" style={{ paddingBottom: 20 }}>
-            <MenuInfoGrid selectedNode={selectNode} />
+            <MenuInfoGrid selectedNode={selectedNode} />
           </div>
           <div className="detail-view-conmment" style={{ paddingBottom: 20 }}>
             <CommentView key={"-1"} />
