@@ -27,6 +27,8 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import NativeSelect from "@mui/material/NativeSelect";
 import menuInfoData from "../../../assets/menuInfo.mock.json";
+import { useDispatch } from "react-redux";
+import { updateMainTreeNode } from "../../../modules/redux/mainTrees";
 
 export default function MenuInfoGrid({
   selectedNode = {
@@ -50,6 +52,7 @@ export default function MenuInfoGrid({
 }: MenuGridInfoProps) {
   //key부분은 노출되어서는 안되기 때문에 분리
   const { key, ...others } = selectedNode; //key부분 제거
+  const dispatch = useDispatch();
 
   const [modifyMode, setModifyMode] = useState<boolean>(false);
 
@@ -149,7 +152,29 @@ export default function MenuInfoGrid({
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setModifyMode(!modifyMode); //상태 변경
+    if (modifyMode) {
+      dispatch(
+        updateMainTreeNode(key, {
+          id: sid,
+          path: spath,
+          name: sname,
+          icon: sicon,
+          visible: ivisible,
+          type: itype,
+          permissionLevel: ipermission,
+          initialData: sinitialData,
+          helpPath: shelpPath,
+          shortcutName: sshortcutName,
+          hideShortcut: shideShortcut,
+          flags: sFlags,
+          searchName: ssearchName,
+          externalPath: sExternalPath,
+          metadata: sMetaData,
+        })
+      );
+    }
+
+    setModifyMode(!modifyMode);
   };
 
   const handleChangeFlags = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -166,12 +191,30 @@ export default function MenuInfoGrid({
     setSMetaData(event.target.value);
   };
 
+  //   useEffect(() => {
+  //     //showAlert가 true로 바뀌면
+  //     // 알림을 띄우고
+  //     // 데이터를 ''로 초기화
+  //     // 그 뒤 flase로 다시 변경
+  //   }, [showAlert]);
+
   useEffect(() => {
-    //showAlert가 true로 바뀌면
-    // 알림을 띄우고
-    // 데이터를 ''로 초기화
-    // 그 뒤 flase로 다시 변경
-  }, [showAlert]);
+    setSid(others.id ?? "");
+    setSpath(others.path ?? "");
+    setSname(others.name ?? "");
+    setSicon(others.icon ?? "");
+    setIvisible(others.visible ?? 1);
+    setItype(others.type ?? 2);
+    setIpermissionLevel(others.permissionLevel ?? 6);
+    setSInitialData(others.initialData ?? "");
+    setShelpPath(others.helpPath ?? "");
+    setSShortcutName(others.shortcutName ?? "");
+    setSHideShortCut(String(others.hideShortcut ?? ""));
+    setSFlags(others.flags ?? "");
+    setSsearchName(others.searchName ?? "");
+    setSExternalPath(others.externalPath ?? "");
+    setSMetaData(others.metadata ?? "");
+  }, [key]);
 
   return (
     <div>
@@ -541,7 +584,7 @@ export default function MenuInfoGrid({
                     style={{ backgroundColor: MAINORANGE }}
                     onClick={handleClick}
                   >
-                    {"저장하기"}
+                    {"SAVE"}
                   </Button>
                 ) : (
                   <Button
@@ -549,7 +592,7 @@ export default function MenuInfoGrid({
                     style={{ backgroundColor: MAINBLUE }}
                     onClick={handleClick}
                   >
-                    {"수정하기"}
+                    {"EDIT"}
                   </Button>
                 )}
               </Stack>
