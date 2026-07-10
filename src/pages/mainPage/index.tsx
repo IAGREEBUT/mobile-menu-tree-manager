@@ -40,7 +40,7 @@ export type HistoryProps = {
 
 //CommentPage 로 넘기는 Props
 export type CommentProps = {
-  key: string;
+  menuKey: string;
 };
 
 const selectNode: menuInfoDetail = {
@@ -104,7 +104,7 @@ function findMenuNodeByKey(
 export default function MainPage() {
   const data = useSelector((state: RootState) => state.mainTrees.treeData);
 
-  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+  const [selectedKey, setSelectedKey] = useState<string | null>("0");
 
   const selectedNode = useMemo(
     () => findMenuNodeByKey(data, selectedKey) ?? selectNode,
@@ -129,13 +129,12 @@ export default function MainPage() {
             <MenuInfoGrid selectedNode={selectedNode} />
           </div>
           <div className="detail-view-conmment" style={{ paddingBottom: 20 }}>
-            <CommentView key={"-1"} />
+            <CommentView menuKey={selectedKey ?? "1"} />
           </div>
           <div className="detail-view-history">
             <HistoryGrid key={"-1"} />
           </div>
         </div>
-        {/* </div> */}
       </Container>
 
       <div className="footer">

@@ -141,7 +141,7 @@ const TreeFilter = ({ menuInfoData, onSelectNode }: TreeFilterProps) => {
               window.location.reload();
             }}
           >
-            {"편집하기"}
+            {"EDIT"}
           </Button>
           <Switch {...label} onChange={handleExpandClick} />
         </Box>
