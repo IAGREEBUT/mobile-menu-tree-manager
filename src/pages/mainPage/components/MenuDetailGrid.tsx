@@ -29,9 +29,10 @@ import NativeSelect from "@mui/material/NativeSelect";
 import menuInfoData from "../../../assets/menuInfo.mock.json";
 import { useDispatch } from "react-redux";
 import { updateMainTreeNode } from "../../../modules/redux/mainTrees";
+import { addHistory } from "../../../modules/redux/history";
 
-export default function MenuInfoGrid({
-  selectedNode = {
+export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
+  const defaultSelectedNode = {
     key: "-",
     id: "-",
     path: "-",
@@ -48,10 +49,10 @@ export default function MenuInfoGrid({
     searchName: "-",
     externalPath: "-",
     metadata: "-",
-  },
-}: MenuGridInfoProps) {
+  };
+
   //key부분은 노출되어서는 안되기 때문에 분리
-  const { key, ...others } = selectedNode; //key부분 제거
+  const { key, ...others } = selectedNode ?? defaultSelectedNode; //key부분 제거
   const dispatch = useDispatch();
 
   const [modifyMode, setModifyMode] = useState<boolean>(false);
@@ -153,6 +154,7 @@ export default function MenuInfoGrid({
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     if (modifyMode) {
+      //update main tree
       dispatch(
         updateMainTreeNode(key, {
           id: sid,
@@ -174,6 +176,53 @@ export default function MenuInfoGrid({
       );
     }
 
+    //add history
+    const changeHistories = [
+      { property: "id", before: others.id, after: sid },
+      { property: "path", before: others.path, after: spath },
+      { property: "name", before: others.name, after: sname },
+      { property: "icon", before: others.icon, after: sicon },
+      { property: "visible", before: others.visible, after: ivisible },
+      { property: "type", before: others.type, after: itype },
+      {
+        property: "permissionLevel",
+        before: others.permissionLevel,
+        after: ipermission,
+      },
+      {
+        property: "initialData",
+        before: others.initialData,
+        after: sinitialData,
+      },
+      { property: "helpPath", before: others.helpPath, after: shelpPath },
+      {
+        property: "shortcutName",
+        before: others.shortcutName,
+        after: sshortcutName,
+      },
+      {
+        property: "hideShortcut",
+        before: others.hideShortcut,
+        after: shideShortcut,
+      },
+      { property: "flags", before: others.flags, after: sFlags },
+      { property: "searchName", before: others.searchName, after: ssearchName },
+      {
+        property: "externalPath",
+        before: others.externalPath,
+        after: sExternalPath,
+      },
+      { property: "metadata", before: others.metadata, after: sMetaData },
+    ];
+
+    changeHistories.forEach(({ property, before, after }) => {
+      const beforeText = String(before ?? "");
+      const afterText = String(after ?? "");
+
+      if (beforeText !== afterText) {
+        dispatch(addHistory(key, property, beforeText, afterText));
+      }
+    });
     setModifyMode(!modifyMode);
   };
 

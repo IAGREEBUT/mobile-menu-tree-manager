@@ -33,7 +33,6 @@ export type DownloadFileProps = {
 };
 
 export default function CommentView({ menuKey = "1" }: CommentProps) {
-  console.log(menuKey);
   const dispatch = useDispatch();
   const [commentText, setCommentText] = useState("");
 

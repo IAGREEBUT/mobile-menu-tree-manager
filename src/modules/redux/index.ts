@@ -3,12 +3,14 @@ import { combineReducers } from "redux";
 import trees from "./trees";
 import mainTrees from "./mainTrees";
 import comments from "./comments";
+import history from "./history";
 
 const rootReducer = combineReducers({
   // 추가하기
   trees,
   mainTrees,
   comments,
+  history,
 });
 
 export default rootReducer;

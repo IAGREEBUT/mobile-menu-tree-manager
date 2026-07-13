@@ -35,7 +35,7 @@ export type MenuGridInfoProps = {
 
 //History 로 넘기는 Props
 export type HistoryProps = {
-  key: string;
+  menyKey: string;
 };
 
 //CommentPage 로 넘기는 Props
@@ -132,7 +132,7 @@ export default function MainPage() {
             <CommentView menuKey={selectedKey ?? "1"} />
           </div>
           <div className="detail-view-history">
-            <HistoryGrid key={"-1"} />
+            <HistoryGrid menyKey={selectedKey ?? "1"} />
           </div>
         </div>
       </Container>
