@@ -16,6 +16,9 @@ import { menuInfo } from "../../../types/dataTypes";
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
 import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 //MenuTree의 Props
 export type MenuTreeProps = {
@@ -119,34 +122,122 @@ const TreeFilter = ({ menuInfoData, onSelectNode }: TreeFilterProps) => {
   };
 
   //스위치
-  const label = { inputProps: { "aria-label": "Size switch demo" } };
+  const label = { inputProps: { "aria-label": "expand all menus" } };
 
   return (
     <div>
-      <Box sx={{ padding: 1, display: "flex", flexDirection: "row" }}>
-        <Box sx={{ display: "flex", paddingRight: 1 }}>
-          <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-          <TextField
-            id="input-with-sx"
-            variant="standard"
-            onKeyUp={onFilterMouseUp}
-          />
-        </Box>
-        <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          p: 2,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1.75,
+          borderBottom: "1px solid #e5e7eb",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 1,
+          }}
+        >
+          <Box>
+            <Typography
+              sx={{
+                fontSize: 16,
+                fontWeight: 800,
+                color: "#111827",
+                lineHeight: 1.2,
+              }}
+            >
+              Menu Tree
+            </Typography>
+          </Box>
+
           <Button
             variant="contained"
-            style={{ backgroundColor: MAINBLUE, minWidth: "50px" }}
+            startIcon={<EditOutlinedIcon />}
+            sx={{
+              backgroundColor: MAINBLUE,
+              minWidth: "96px",
+              px: 1.75,
+              fontSize: 13,
+              textTransform: "none",
+            }}
             onClick={() => {
               navigate("/edit");
               window.location.reload();
             }}
           >
-            {"EDIT"}
+            EDIT TREE
           </Button>
-          <Switch {...label} onChange={handleExpandClick} />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              flex: 1,
+              minWidth: 0,
+              px: 1.5,
+              py: 0.75,
+              border: "1px solid #e5e7eb",
+              borderRadius: 2,
+              backgroundColor: "#ffffff",
+            }}
+          >
+            <SearchIcon sx={{ color: "#6b7280", fontSize: 20 }} />
+            <TextField
+              id="input-with-sx"
+              variant="standard"
+              onKeyUp={onFilterMouseUp}
+              placeholder="Search menus..."
+              fullWidth
+              InputProps={{
+                disableUnderline: true,
+                sx: {
+                  fontSize: 14,
+                },
+              }}
+            />
+          </Box>
+
+          <FormControlLabel
+            control={
+              <Switch
+                {...label}
+                checked={allExpand}
+                onChange={handleExpandClick}
+                color="primary"
+              />
+            }
+            label=""
+            labelPlacement="start"
+            sx={{
+              ml: 0,
+              mr: 0,
+              flexShrink: 0,
+              gap: 0.5,
+              "& .MuiFormControlLabel-label": {
+                fontSize: 13,
+                fontWeight: 700,
+                color: "#374151",
+              },
+            }}
+          />
         </Box>
       </Box>
-      <Box>
+
+      <Box sx={{ p: 1.5 }}>
         <MenuTreeView
           data={subjectData!}
           expanded={expanded}

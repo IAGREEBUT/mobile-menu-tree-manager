@@ -58,24 +58,14 @@ const initialCommentData: comments = {
   commentList: [
     {
       id: 0,
-      manager: {
-        id: 1,
-        mId: "DEMO001",
-        name: "Demo Admin",
-        email: "demo.admin@example.com",
-      },
+      managerId: 1,
       createdTime: "2026-07-09 10:00",
       modifiedTime: "-",
       comments: "Review required before publishing this menu change.",
     },
     {
       id: 1,
-      manager: {
-        id: 2,
-        mId: "DEMO002",
-        name: "Product Manager",
-        email: "product.manager@example.com",
-      },
+      managerId: 2,
       createdTime: "2026-07-09 10:15",
       modifiedTime: "-",
       comments:
@@ -83,36 +73,21 @@ const initialCommentData: comments = {
     },
     {
       id: 2,
-      manager: {
-        id: 3,
-        mId: "DEMO003",
-        name: "Frontend Developer",
-        email: "frontend.dev@example.com",
-      },
+      managerId: 3,
       createdTime: "2026-07-09 10:30",
       modifiedTime: "-",
       comments: "The display name has been updated for the rebuild demo.",
     },
     {
       id: 3,
-      manager: {
-        id: 1,
-        mId: "DEMO001",
-        name: "Demo Admin",
-        email: "demo.admin@example.com",
-      },
+      managerId: 1,
       createdTime: "2026-07-09 10:45",
       modifiedTime: "-",
       comments: "Check the drag-and-drop order before exporting the menu file.",
     },
     {
       id: 4,
-      manager: {
-        id: 2,
-        mId: "DEMO002",
-        name: "Product Manager",
-        email: "product.manager@example.com",
-      },
+      managerId: 2,
       createdTime: "2026-07-09 11:00",
       modifiedTime: "-",
       comments:
@@ -120,24 +95,14 @@ const initialCommentData: comments = {
     },
     {
       id: 5,
-      manager: {
-        id: 3,
-        mId: "DEMO003",
-        name: "Frontend Developer",
-        email: "frontend.dev@example.com",
-      },
+      managerId: 3,
       createdTime: "2026-07-09 11:15",
       modifiedTime: "-",
       comments: "Backend persistence is not included in this rebuild version.",
     },
     {
       id: 6,
-      manager: {
-        id: 1,
-        mId: "DEMO001",
-        name: "Demo Admin",
-        email: "demo.admin@example.com",
-      },
+      managerId: 1,
       createdTime: "2026-07-09 11:30",
       modifiedTime: "-",
       comments:
@@ -183,12 +148,7 @@ export default function commentsReducer(
               ...targetCommentData.commentList,
               {
                 id: nextCommentId,
-                manager: {
-                  id: 0,
-                  mId: "DEMO_USER",
-                  name: "Demo User",
-                  email: "demo.user@example.com",
-                },
+                managerId: 0,
                 createdTime: getCurrentDateTimeText(),
                 modifiedTime: "-",
                 comments: comment,

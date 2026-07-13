@@ -27,7 +27,7 @@ function Footer() {
     "Frontend-only rebuild for visualising and managing legacy mobile app menu configuration.";
 
   return (
-    <Box component="footer" sx={{ bgcolor: "background.paper", py: 6 }}>
+    <Box component="footer" sx={{ py: 6 }}>
       <Container maxWidth="lg">
         <Typography variant="h6" align="center" gutterBottom>
           {title}

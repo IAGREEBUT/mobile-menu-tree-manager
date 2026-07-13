@@ -64,7 +64,7 @@ export type menuHistory = {
 export type historyDetail = {
   id: number;
   timestamp: string; //변경 일자 -> js에서는 db에서오는 날짜를 string으로 받아야한다고 함..(?)
-  manager: managerInfo;
+  managerId: number;
   changedProperty: string;
   before: string;
   after: string;
@@ -76,6 +76,8 @@ export type managerInfo = {
   name: string;
   mId: string; //사번
   email?: string;
+  profile?: string;
+  role?: string;
 };
 
 //CommentView
@@ -89,7 +91,7 @@ export type comments = {
 
 export type commentDetail = {
   id: number;
-  manager: managerInfo; //누가썼는지
+  managerId: number; //누가썼는지
   createdTime: string; //없으면 -
   modifiedTime: string; // 없으면 -
   comments?: string; //없으면 "" <-이거

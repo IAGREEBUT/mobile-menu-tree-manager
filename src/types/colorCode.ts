@@ -5,14 +5,14 @@ https://securities.miraeasset.com/newir/view/pc/kr/ciguide.jsp
 
 */
 
-//메인 컬러 
+//메인 컬러
 export const MAINORANGE = "#F58220";
-export const MAINBLUE = "#043B72";
+export const MAINBLUE = "#2563eb";
 
-//blue color 
-export const BLUE20 = "#8DC8E8";
+//blue color
+export const BLUE100 = "#1e40af";
 
-//orange color 
+//orange color
 export const ORNAGE20 = "#F0B26B";
 
 //black

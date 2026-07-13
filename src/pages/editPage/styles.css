@@ -1,50 +1,43 @@
+.header {
+  grid-area: header;
+  /* background-color: red; */
 
-
-.header { 
-    grid-area: header; 
-    background-color: red;
-
-    min-height: 100px;
+  min-height: 100px;
 }
 
-.start { 
-    grid-area: start; 
-    background-color: red;
-    min-height: 100px;
+.start {
+  grid-area: start;
+  /* background-color: red; */
+  min-height: 100px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-
 
 /* 화면 길이는 detail-view쪽으로 맞추고 sidbar는 스크롤  */
-.main-content { 
-    grid-area: main; 
-    background-color: rgb(128, 0, 94);
+.main-content {
+  grid-area: main;
+  /* background-color: rgb(128, 0, 94); */
 
-    display: flex;
+  display: flex;
 
+  width: 100%;
 
-    width: 100%;
-
-    /* div inside padding */
-    box-sizing: border-box;
-    padding: 30px;
-
+  /* div inside padding */
+  box-sizing: border-box;
+  padding: 30px;
 }
 
-.footer { 
-    grid-area: footer; 
-    background-color: rgb(220, 213, 20);
+.footer {
+  grid-area: footer;
+  /* background-color: rgb(220, 213, 20); */
 
-    min-height: 150px;
+  min-height: 150px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-
 
 /*
 
@@ -58,80 +51,66 @@
 
 */
 @media screen and (max-width: 800px) {
-    
-    .main-container {
+  .main-container {
+    display: grid;
 
-        display: grid;
-    
-        grid-template-areas: 
-            " start  start  start "
-            " main   main    main "
-            "   .     .       .   "
-            "footer footer  footer";
-    
-        width: 100%;
-    };
-    
-    
-    .header { 
-        grid-area: header; 
-        background-color: purple;
-    
-        min-height: 100px;
-    }
-    
-    .start { 
-        grid-area: start; 
-        background-color: purple;
-        min-height: 100px;
-    
-        display: flex;
-        align-items: center;
-    }
-    
+    grid-template-areas:
+      " start  start  start "
+      " main   main    main "
+      "   .     .       .   "
+      "footer footer  footer";
 
-    
-    .main-content { 
-        grid-area: main; 
-        background-color: green;
-    
-        display: flex;
-        flex-direction: row;
-    
-        width: 100%;
-    
-    }
-    
-    .footer { 
-        grid-area: footer; 
-        background-color: crimson;
-    
-        min-height: 150px;
-    
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    width: 100%;
+  }
 
+  .header {
+    grid-area: header;
+    /* background-color: purple; */
+
+    min-height: 100px;
+  }
+
+  .start {
+    grid-area: start;
+    /* background-color: purple; */
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+  }
+
+  .main-content {
+    grid-area: main;
+    /* background-color: green; */
+
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+  }
+
+  .footer {
+    grid-area: footer;
+    /* background-color: crimson; */
+
+    min-height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
-
-
 
 /* History gird에 hover 텍스트  */
 .text-styled {
-    color: blue;
+  color: blue;
 
-    /* 테이블 내부에서 <p> 태그쓰면 margin때문에 height조절이 안먹힘 */
-    margin:0; 
+  /* 테이블 내부에서 <p> 태그쓰면 margin때문에 height조절이 안먹힘 */
+  margin: 0;
 }
 
 .text-styled:hover {
-    color: blue;
-    text-decoration: underline;
-    margin:0;
+  color: blue;
+  text-decoration: underline;
+  margin: 0;
 }
-
-
-
-
-  

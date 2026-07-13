@@ -1,0 +1,52 @@
+{
+  "managers": [
+    {
+      "id": 0,
+      "mId": "DEMO000",
+      "name": "DEMO USER",
+      "email": "demo.user@example.com",
+      "profile": "",
+      "role": "Demo user"
+    },
+    {
+      "id": 1,
+      "mId": "DEMO001",
+      "name": "Jack",
+      "email": "jack.lee@example.com",
+      "profile": "/images/profile1.png",
+      "role": "Frontend Developer"
+    },
+    {
+      "id": 2,
+      "mId": "DEMO002",
+      "name": "Mia",
+      "email": "mia.chen@example.com",
+      "profile": "/images/profile2.png",
+      "role": "Product Manager"
+    },
+    {
+      "id": 3,
+      "mId": "DEMO003",
+      "name": "Arjun",
+      "email": "arjun.patel@example.com",
+      "profile": "/images/profile3.png",
+      "role": "Backend Developer"
+    },
+    {
+      "id": 4,
+      "mId": "DEMO004",
+      "name": "Ava",
+      "email": "ava.johnson@example.com",
+      "profile": "/images/profile4.png",
+      "role": "UX Designer"
+    },
+    {
+      "id": 5,
+      "mId": "DEMO005",
+      "name": "Sofia",
+      "email": "sofia.kim@example.com",
+      "profile": "/images/profile5.png",
+      "role": "QA Engineer"
+    }
+  ]
+}

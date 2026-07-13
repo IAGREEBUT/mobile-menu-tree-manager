@@ -43,12 +43,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 0,
       timestamp: "2026-07-08 08:25",
-      manager: {
-        id: 1,
-        mId: "DEMO001",
-        name: "Demo Admin",
-        email: "demo.admin@example.com",
-      },
+      managerId: 1,
       changedProperty: "initialData",
       before: "",
       after: '{"entryPoint":"account"}',
@@ -56,12 +51,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 1,
       timestamp: "2026-07-08 08:40",
-      manager: {
-        id: 2,
-        mId: "DEMO002",
-        name: "Product Manager",
-        email: "product.manager@example.com",
-      },
+      managerId: 2,
       changedProperty: "helpPath",
       before: "",
       after: "/help/account-opening",
@@ -69,12 +59,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 2,
       timestamp: "2026-07-08 08:55",
-      manager: {
-        id: 3,
-        mId: "DEMO003",
-        name: "Frontend Developer",
-        email: "frontend.dev@example.com",
-      },
+      managerId: 3,
       changedProperty: "flags",
       before: "beta",
       after: "stable",
@@ -82,12 +67,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 3,
       timestamp: "2026-07-08 09:10",
-      manager: {
-        id: 1,
-        mId: "DEMO001",
-        name: "Demo Admin",
-        email: "demo.admin@example.com",
-      },
+      managerId: 1,
       changedProperty: "externalPath",
       before: "",
       after: "https://example.com/account-guide",
@@ -95,12 +75,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 4,
       timestamp: "2026-07-08 09:25",
-      manager: {
-        id: 2,
-        mId: "DEMO002",
-        name: "Product Manager",
-        email: "product.manager@example.com",
-      },
+      managerId: 2,
       changedProperty: "permissionLevel",
       before: "6",
       after: "1",
@@ -108,12 +83,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 5,
       timestamp: "2026-07-08 09:40",
-      manager: {
-        id: 3,
-        mId: "DEMO003",
-        name: "Frontend Developer",
-        email: "frontend.dev@example.com",
-      },
+      managerId: 3,
       changedProperty: "initialData",
       before: "",
       after: '{"entryPoint":"account"}',
@@ -121,12 +91,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 6,
       timestamp: "2026-07-08 09:55",
-      manager: {
-        id: 1,
-        mId: "DEMO001",
-        name: "Demo Admin",
-        email: "demo.admin@example.com",
-      },
+      managerId: 1,
       changedProperty: "helpPath",
       before: "",
       after: "/help/account-opening",
@@ -134,12 +99,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 7,
       timestamp: "2026-07-08 10:10",
-      manager: {
-        id: 2,
-        mId: "DEMO002",
-        name: "Product Manager",
-        email: "product.manager@example.com",
-      },
+      managerId: 2,
       changedProperty: "flags",
       before: "beta",
       after: "stable",
@@ -147,12 +107,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 8,
       timestamp: "2026-07-08 10:25",
-      manager: {
-        id: 3,
-        mId: "DEMO003",
-        name: "Frontend Developer",
-        email: "frontend.dev@example.com",
-      },
+      managerId: 3,
       changedProperty: "externalPath",
       before: "",
       after: "https://example.com/account-guide",
@@ -160,12 +115,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 9,
       timestamp: "2026-07-08 10:40",
-      manager: {
-        id: 1,
-        mId: "DEMO001",
-        name: "Demo Admin",
-        email: "demo.admin@example.com",
-      },
+      managerId: 1,
       changedProperty: "permissionLevel",
       before: "6",
       after: "1",
@@ -173,12 +123,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 10,
       timestamp: "2026-07-09 12:04",
-      manager: {
-        id: 2,
-        mId: "DEMO002",
-        name: "Product Manager",
-        email: "product.manager@example.com",
-      },
+      managerId: 2,
       changedProperty: "initialData",
       before: "",
       after: '{"entryPoint":"account"}',
@@ -186,12 +131,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 11,
       timestamp: "2026-07-09 12:18",
-      manager: {
-        id: 3,
-        mId: "DEMO003",
-        name: "Frontend Developer",
-        email: "frontend.dev@example.com",
-      },
+      managerId: 3,
       changedProperty: "helpPath",
       before: "",
       after: "/help/account-opening",
@@ -199,12 +139,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 12,
       timestamp: "2026-07-09 12:31",
-      manager: {
-        id: 1,
-        mId: "DEMO001",
-        name: "Demo Admin",
-        email: "demo.admin@example.com",
-      },
+      managerId: 1,
       changedProperty: "flags",
       before: "beta",
       after: "stable",
@@ -212,12 +147,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 13,
       timestamp: "2026-07-09 12:47",
-      manager: {
-        id: 2,
-        mId: "DEMO002",
-        name: "Product Manager",
-        email: "product.manager@example.com",
-      },
+      managerId: 2,
       changedProperty: "externalPath",
       before: "",
       after: "https://example.com/account-guide",
@@ -225,12 +155,7 @@ const initialHistoryData: menuHistory = {
     {
       id: 14,
       timestamp: "2026-07-09 13:05",
-      manager: {
-        id: 3,
-        mId: "DEMO003",
-        name: "Frontend Developer",
-        email: "frontend.dev@example.com",
-      },
+      managerId: 3,
       changedProperty: "permissionLevel",
       before: "6",
       after: "1",
@@ -276,12 +201,7 @@ export default function historyReducer(
               {
                 id: nextHistoryId,
                 timestamp: getCurrentDateTimeText(),
-                manager: {
-                  id: 0,
-                  mId: "DEMO_USER",
-                  name: "Demo User",
-                  email: "demo.user@example.com",
-                },
+                managerId: 0,
                 changedProperty: changeProperty,
                 before: before,
                 after: after,

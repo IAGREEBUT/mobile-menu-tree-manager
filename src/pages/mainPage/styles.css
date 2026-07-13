@@ -1,230 +1,241 @@
-
-
-.header { 
-    grid-area: header; 
-    background-color: red;
-
-    min-height: 100px;
+:root {
+  --page-bg: #f5f7fb;
+  --surface-bg: #ffffff;
+  --surface-muted-bg: #fbfcfe;
+  --surface-border: #e5e7eb;
+  --surface-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
 }
 
-.start { 
-    grid-area: start; 
-    background-color: red;
+body {
+  background-color: var(--page-bg);
+}
+
+.main-container {
+  min-height: 100vh;
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+}
+
+.header {
+  grid-area: header;
+  /* background-color: red; */
+
+  min-height: 100px;
+}
+
+.start {
+  grid-area: start;
+  /* background-color: red; */
+  min-height: 100px;
+
+  display: flex;
+  align-items: center;
+
+  background-color: var(--surface-bg);
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: 0 1px 8px rgba(15, 23, 42, 0.04);
+}
+
+.sidebar {
+  /* background-color: rgb(34, 255, 0); */
+
+  /* min-height: fit-content; */
+  /* min-width: 300px; */
+  overflow-y: scroll;
+
+  /*  */
+  /* width: 40%; */
+
+  background-color: var(--surface-muted-bg);
+  border-right: 1px solid var(--surface-border);
+  border-radius: 12px 0 0 12px;
+}
+
+.detail-view {
+  /* background-color: blue; */
+
+  min-height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+
+  /* 내부패딩 */
+  box-sizing: border-box;
+  padding: 30px;
+
+  background-color: transparent;
+}
+
+.detail-view-content {
+  /* background-color: aqua; */
+}
+
+.detail-view-comment {
+  /* background-color: blue; */
+}
+
+.detail-view-history {
+  /* background-color: darkblue; */
+}
+
+/* 화면 길이는 detail-view쪽으로 맞추고 sidbar는 스크롤  */
+.main-content {
+  grid-area: main;
+  /* background-color: rgb(128, 0, 94); */
+
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+
+  /* div inside padding */
+  box-sizing: border-box;
+  padding: 30px;
+
+  background-color: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  box-shadow: var(--surface-shadow);
+  margin-bottom: 32px;
+}
+
+.footer {
+  grid-area: footer;
+  /* background-color: rgb(220, 213, 20); */
+
+  min-height: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text-secondary);
+}
+
+/*
+  
+  
+  
+  700pixel이하의 넓이에서 보여지는 것 
+  
+  
+  
+  
+  
+  */
+@media screen and (max-width: 800px) {
+  .main-container {
+    display: grid;
+
+    grid-template-areas:
+      " start  start  start "
+      " main   main    main "
+      "   .     .       .   "
+      "footer footer  footer";
+
+    width: 100%;
+  }
+
+  .header {
+    grid-area: header;
+    /* background-color: purple; */
+
+    min-height: 100px;
+  }
+
+  .start {
+    grid-area: start;
+    /* background-color: purple; */
     min-height: 100px;
 
     display: flex;
     align-items: center;
-}
 
-.sidebar { 
-    background-color: rgb(34, 255, 0);
-    
+    background-color: var(--surface-bg);
+    border-bottom: 1px solid var(--surface-border);
+  }
+
+  .sidebar {
+    /* background-color: blue; */
+
     /* min-height: fit-content; */
-    /* min-width: 300px; */
-    overflow-y: scroll;   
+    overflow-y: scroll;
 
-    /*  */
+    /* 화면작아 졌을 때는 최대 150px 범위  */
+    width: 250px;
+
     /* width: 40%; */
+  }
 
+  .detail-view {
+    /* background-color: blueviolet; */
 
-}
-
-.detail-view { 
-    background-color: blue;
-    
     min-height: fit-content;
 
     display: flex;
     flex-direction: column;
-
+    min-width: 450px;
 
     /* 내부패딩 */
     box-sizing: border-box;
     padding: 30px;
+  }
 
-}
+  .detail-view-content {
+    /* background-color: aqua; */
 
-.detail-view-content {
+    width: 100%;
+  }
 
-    background-color: aqua;
-    
+  .detail-view-comment {
+    /* background-color: palegoldenrod; */
+  }
 
-}
+  .detail-view-history {
+    /* background-color: darkblue; */
 
-.detail-view-comment {
+    width: 100%;
+  }
 
-    background-color: blue;
-}
-
-.detail-view-history {
-
-    background-color: darkblue;
-
-
-}
-
-
-
-/* 화면 길이는 detail-view쪽으로 맞추고 sidbar는 스크롤  */
-.main-content { 
-    grid-area: main; 
-    background-color: rgb(128, 0, 94);
+  .main-content {
+    grid-area: main;
+    /* background-color: green; */
 
     display: flex;
     flex-direction: row;
 
     width: 100%;
 
-    /* div inside padding */
-    box-sizing: border-box;
-    padding: 30px;
+    background-color: var(--surface-bg);
+    border: 1px solid var(--surface-border);
+    border-radius: 12px;
+    box-shadow: var(--surface-shadow);
+  }
 
-}
-
-.footer { 
-    grid-area: footer; 
-    background-color: rgb(220, 213, 20);
+  .footer {
+    grid-area: footer;
+    /* background-color: crimson; */
 
     min-height: 150px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+  }
 }
-
-
-
-/*
-
-
-
-700pixel이하의 넓이에서 보여지는 것 
-
-
-
-
-
-*/
-@media screen and (max-width: 800px) {
-    
-    .main-container {
-
-        display: grid;
-    
-        grid-template-areas: 
-            " start  start  start "
-            " main   main    main "
-            "   .     .       .   "
-            "footer footer  footer";
-    
-        width: 100%;
-    };
-    
-    
-    .header { 
-        grid-area: header; 
-        background-color: purple;
-    
-        min-height: 100px;
-    }
-    
-    .start { 
-        grid-area: start; 
-        background-color: purple;
-        min-height: 100px;
-    
-        display: flex;
-        align-items: center;
-    }
-    
-    .sidebar { 
-        background-color: blue;
-        
-        /* min-height: fit-content; */
-        overflow-y: scroll;
-    
-    
-        /* 화면작아 졌을 때는 최대 150px 범위  */
-        width: 250px; 
-    
-    
-        /* width: 40%; */
-    
-    }
-    
-    .detail-view { 
-        background-color: blueviolet;
-        
-        min-height: fit-content;
-    
-    
-        display: flex;
-        flex-direction: column;
-        min-width: 450px;
-    
-        /* 내부패딩 */
-        box-sizing: border-box;
-        padding: 30px;
-
-    }
-    
-    
-    .detail-view-content {
-    
-        background-color: aqua;
-        
-        width: 100%;
-    }
-
-    .detail-view-comment {
-
-        background-color: palegoldenrod;
-    }
-    
-    .detail-view-history {
-    
-        background-color: darkblue;
-    
-    
-        width: 100%;
-    }
-    
-    .main-content { 
-        grid-area: main; 
-        background-color: green;
-    
-        display: flex;
-        flex-direction: row;
-    
-        width: 100%;
-    
-    }
-    
-    .footer { 
-        grid-area: footer; 
-        background-color: crimson;
-    
-        min-height: 150px;
-    
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-}
-
-
 
 /* History gird에 hover 텍스트  */
 .text-styled {
-    color: blue;
-
-    /* 테이블 내부에서 <p> 태그쓰면 margin때문에 height조절이 안먹힘 */
-    margin:0; 
+  /* color: blue; */
+  /* 테이블 내부에서 <p> 태그쓰면 margin때문에 height조절이 안먹힘 */
+  margin: 0;
 }
 
 .text-styled:hover {
-    color: blue;
-    text-decoration: underline;
-    margin:0;
+  /* color: blue; */
+  color: red;
+  text-decoration: underline;
+  margin: 0;
 }

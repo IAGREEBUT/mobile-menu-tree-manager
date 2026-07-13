@@ -101,7 +101,7 @@ export default function HistoryGrid({ menyKey }: HistoryProps) {
                     </TableCell>
                     <TableCell align="left">
                       <ManagerInfoModal
-                        manager={e.manager}
+                        id={e.managerId}
                         size={12}
                         isBold={false}
                       />

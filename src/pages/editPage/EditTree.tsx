@@ -26,6 +26,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { update } from "../../modules/redux/trees";
 import { RootState } from "../../modules/redux";
 import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 const getLastId = (treeData: NodeModel[]): number => {
   const reversedArray: NodeModel[] = [...treeData].sort((a, b) => {
@@ -79,12 +80,12 @@ function EditView() {
         dropTarget: 드롭당한 노드 
       */
 
-    console.log("==================================================");
-    console.log("source : " + dragSourceId);
-    console.log("source parent " + dragSource?.parent);
-    console.log("dest parent: " + dropTargetId);
-    console.log("destinationIndex : " + destinationIndex);
-    console.log("relativeIndex : " + relativeIndex);
+    // console.log("==================================================");
+    // console.log("source : " + dragSourceId);
+    // console.log("source parent " + dragSource?.parent);
+    // console.log("dest parent: " + dropTargetId);
+    // console.log("destinationIndex : " + destinationIndex);
+    // console.log("relativeIndex : " + relativeIndex);
 
     /*
         1. data.order대로 정렬한다 (sort에 order함수 사용)
@@ -116,7 +117,6 @@ function EditView() {
       */
 
     dispatch(update(newTree));
-    // setTreeData(newTree)
   };
 
   const handleTextChange = (id: NodeModel["id"], value: string) => {
@@ -133,7 +133,6 @@ function EditView() {
 
     //dispatch
     dispatch(update(newTree));
-    // setTreeData(newTree);
   };
 
   //add & remove   const handleOpenDialog = () => {
@@ -182,8 +181,6 @@ function EditView() {
     //     id: lastId,
     //   }
     // ]);
-
-    // setOpenAdd(false); -> 하위 props로 넘어가서 안먹힘
   };
 
   const ref = useRef<TreeMethods>(null);
@@ -191,48 +188,70 @@ function EditView() {
   const handleOpenAll = () => ref.current?.openAll();
   const handleCloseAll = () => ref.current?.closeAll();
 
+  const [isAllExpanded, setIsAllExpanded] = useState(false);
+
+  const handleToggleAllExpanded = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const checked = event.target.checked;
+    setIsAllExpanded(checked);
+
+    if (checked) {
+      handleOpenAll();
+    } else {
+      handleCloseAll();
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <DndProvider backend={MultiBackend} options={getBackendOptions()}>
         <div className={styles.editView}>
-          {/* add & remove */}
-          {/* <div> */}
-          {/* <Button onClick={handleOpenDialog} startIcon={<AddIcon />}>
-              Add Node
-            </Button> */}
-          {/* {openAdd && (
-              <AddDialog
-                tree={treeData}
-                onClose={handleCloseDialog}
-                onSubmit={handleSubmit}
+          <div
+            className={styles.actions}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
+              padding: "14px 16px",
+              marginBottom: 18,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isAllExpanded}
+                    onChange={handleToggleAllExpanded}
+                    color="primary"
+                    inputProps={{ "aria-label": "toggle expand all menus" }}
+                  />
+                }
+                label={isAllExpanded ? "Collapse All" : "Expand All"}
+                sx={{
+                  marginLeft: 0,
+                  color: "#374151",
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: 14,
+                    fontWeight: 700,
+                  },
+                }}
               />
-            )} */}
-          {/* </div> */}
-          {/* add & remove */}
-          <div className={styles.actions}>
+            </div>
+
             <Button
-              variant="outlined"
-              color="primary"
-              onClick={handleOpenAll}
-              data-testid="btn-open-all"
-            >
-              EXPAND
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={handleCloseAll}
-              data-testid="btn-close-all"
-            >
-              COLLAPSE
-            </Button>
-            <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               onClick={() => {
                 navigate("/");
                 window.location.reload();
+              }}
+              sx={{
+                px: 2.5,
+                textTransform: "none",
+                boxShadow: "0 8px 18px rgba(37, 99, 235, 0.25)",
               }}
             >
               APPLY CHANGES
@@ -266,20 +285,6 @@ function EditView() {
               draggingSource: styles.draggingSource,
               placeholder: styles.placeholderContainer,
             }}
-            // sort={(a:NodeModel<CustomData>, b:NodeModel<CustomData>) => {
-
-            //   if(a.data?.order === undefined || b.data?.order ===undefined){
-            //     return 0;
-            //   }
-            //   else{
-            //     if(a.data.order < b.data.order)
-            //       return -1;
-            //     else if(a.data.order > b.data.order)
-            //       return 1;
-            //     else return 0;
-            //   }
-            //   }
-            // }
             sort={false}
             insertDroppableFirst={false}
             canDrop={(tree, { dragSource, dropTargetId, dropTarget }) => {

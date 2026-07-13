@@ -25,8 +25,9 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { ManagerInfoModal } from "./ManagerInfoModal";
 import { CommentProps } from "..";
 import type { RootState } from "../../../modules/redux";
-
+import { Avatar } from "@mui/material";
 import { addComment } from "../../../modules/redux/comments";
+import { findManagerProfileById } from "../../../modules/util/searchManager";
 
 export type DownloadFileProps = {
   attached: any[];
@@ -201,19 +202,9 @@ export default function CommentView({ menuKey = "1" }: CommentProps) {
                     }}
                   >
                     <div style={{ display: "flex", width: "90%" }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingRight: 5,
-                        }}
-                      >
-                        <AccountCircleIcon sx={{ fontSize: 30 }} />
-                      </div>
                       <div>
                         <ManagerInfoModal
-                          manager={e.manager}
+                          id={e.managerId}
                           size={13}
                           isBold={true}
                         />
@@ -224,6 +215,7 @@ export default function CommentView({ menuKey = "1" }: CommentProps) {
                               justifyContent: "flex-start",
                               alignItems: "center",
                               paddingRight: 30,
+                              paddingTop: 5,
                               minWidth: "100px",
                             }}
                           >

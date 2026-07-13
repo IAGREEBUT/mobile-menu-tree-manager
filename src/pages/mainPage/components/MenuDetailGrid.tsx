@@ -14,7 +14,7 @@ import { MenuGridInfoProps } from "..";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { MAINBLUE, MAINORANGE } from "../../../types/colorCode";
+import { MAINBLUE, BLUE100 } from "../../../types/colorCode";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -584,7 +584,7 @@ export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
                                   marginLeft: 0.5,
                                   verticalAlign: "middle",
                                   cursor: "help",
-                                  color: "warning.main",
+                                  color: MAINBLUE,
                                 }}
                               />
                             </Tooltip>
@@ -607,16 +607,21 @@ export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
               </TableBody>
             </Table>
           </TableContainer>
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
             <Box style={{ padding: 5 }}>
               <Stack spacing={2} direction="row">
                 {modifyMode ? (
                   <Button
                     variant="contained"
-                    style={{ backgroundColor: MAINORANGE }}
+                    style={{ backgroundColor: BLUE100 }}
                     onClick={handleClick}
                   >
-                    {"SAVE"}
+                    {"Save changes"}
                   </Button>
                 ) : (
                   <Button
@@ -624,7 +629,7 @@ export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
                     style={{ backgroundColor: MAINBLUE }}
                     onClick={handleClick}
                   >
-                    {"EDIT"}
+                    {"Edit MenuInfo"}
                   </Button>
                 )}
               </Stack>

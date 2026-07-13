@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { Fab, Tooltip } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { downloadMenuInfoJson } from "../../modules/util/menuParser";
+import { MAINBLUE } from "../../types/colorCode";
 
 //TreeFilter로 넘기는 Props
 export type TreeFilterProps = {
@@ -159,6 +160,7 @@ export default function MainPage() {
             right: 24,
             bottom: 24,
             zIndex: 1000,
+            backgroundColor: MAINBLUE,
           }}
         >
           <FileDownloadIcon />
