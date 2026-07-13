@@ -1,4 +1,5 @@
 import { comments } from "../../types/dataTypes";
+import { getCurrentDateTimeText } from "../util/dataTime";
 
 const ADD_COMMENT = "comments/addComment" as const;
 const SET_COMMENTS = "comments/setComments" as const;
@@ -150,17 +151,6 @@ const initialCommentsState: CommentsState = {
     [initialCommentData.key]: initialCommentData,
   },
 };
-
-function getCurrentDateTimeText(): string {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const date = String(now.getDate()).padStart(2, "0");
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-
-  return `${year}-${month}-${date} ${hours}:${minutes}`;
-}
 
 function createEmptyCommentData(key: string): comments {
   return {
