@@ -1,5 +1,5 @@
 import React from "react";
-import { MAINBLUE, BLACK20, BLACK60, BLACK80 } from "../../../types/colorCode";
+import { MAINBLUE, BLACK80 } from "../../../types/colorCode";
 import { comments } from "../../../types/dataTypes";
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
@@ -14,20 +14,14 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
-import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
-import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Divider from "@mui/material/Divider";
 import Pagination from "@mui/material/Pagination";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { ManagerInfoModal } from "./ManagerInfoModal";
 import { CommentProps } from "..";
 import type { RootState } from "../../../modules/redux";
-import { Avatar } from "@mui/material";
 import { addComment } from "../../../modules/redux/comments";
-import { findManagerProfileById } from "../../../modules/util/searchManager";
 
 export type DownloadFileProps = {
   attached: any[];
@@ -48,83 +42,6 @@ export default function CommentView({ menuKey = "1" }: CommentProps) {
     setCommentText("");
     setPage(1);
   };
-  //drag & drop관련
-  //등록 가능한 파일 타입
-  const [fileList, setFileList] = useState<FileList>();
-  const fileTypes = [
-    "pptx",
-    "pdf",
-    "json",
-    "jpg",
-    "jpeg",
-    "png",
-    "txt",
-    "xlsx",
-    "doc",
-  ];
-  const handleChange = (file: FileList) => {
-    setFileList(file);
-  };
-
-  function repeat() {
-    let fileNames = [];
-    if (fileList) {
-      for (let i = 0; i < fileList?.length; i++) {
-        fileNames.push(
-          <>
-            <Typography sx={{ fontSize: 14 }} color={BLACK60} gutterBottom>
-              {fileList.item(i)?.name}
-            </Typography>
-          </>
-        );
-      }
-    }
-
-    return fileNames;
-  }
-
-  //drag and drop style
-  //   const fileUploader = (
-  //     <div
-  //       style={{
-  //         backgroundColor: "white",
-  //         borderStyle: "solid",
-  //         borderWidth: 1,
-  //         borderRadius: 5,
-  //         borderColor: BLACK60,
-  //         display: "flex",
-  //         flexDirection: "column",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         boxSizing: "border-box",
-  //         padding: 10,
-  //       }}
-  //     >
-  //       {!fileList ? (
-  //         <>
-  //           <div>
-  //             <FileUploadIcon sx={{ color: BLACK60 }} />
-  //           </div>
-  //           <div>
-  //             <Typography sx={{ fontSize: 14 }} color={BLACK60} gutterBottom>
-  //               드래그 또는 클릭하여 파일을 추가하세요.
-  //             </Typography>
-  //           </div>
-  //         </>
-  //       ) : (
-  //         <>
-  //           <div>
-  //             <FileDownloadDoneIcon sx={{ color: BLACK20 }} />
-  //           </div>
-  //           <div>{repeat()}</div>
-  //         </>
-  //       )}
-  //     </div>
-  //   );
-
-  // 댓글에 포함된 파일 저장 관련
-
-  const ITEM_HEIGHT = 48;
 
   const commentData = useSelector(
     (state: RootState) => state.comments.commentsByMenuKey[menuKey]
@@ -309,23 +226,6 @@ export default function CommentView({ menuKey = "1" }: CommentProps) {
                       sx={{ width: "100%", backgroundColor: "white" }}
                     />
                   </div>
-                  {/* <div
-                    style={{
-                      width: "100%",
-                      display: "block",
-                      paddingBottom: 5,
-                    }}
-                  >
-                    https://codesandbox.io/s/simpledialog-material-demo-lvpou9 
-                                            여기에다가 디자인 넣는 법! 
-                    <FileUploader
-                      handleChange={handleChange}
-                      name="file"
-                      types={fileTypes}
-                      multiple={true}
-                      children={fileUploader}
-                    />
-                  </div> */}
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <Stack spacing={2} direction="row">
                       <Button

@@ -349,9 +349,9 @@ export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
             onChange={handleChangeType}
             label="Type"
           >
-            <MenuItem value={0}> 0:메뉴항목 </MenuItem>
-            <MenuItem value={1}> 1:서브메뉴 </MenuItem>
-            <MenuItem value={2}> 2:확장메뉴 </MenuItem>
+            <MenuItem value={0}> 0:menu </MenuItem>
+            <MenuItem value={1}> 1:sub menu </MenuItem>
+            <MenuItem value={2}> 2:expanded menu </MenuItem>
           </Select>
         </FormControl>
       ),

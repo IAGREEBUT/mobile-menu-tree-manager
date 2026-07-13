@@ -1,30 +1,22 @@
 import React, { useState } from "react";
 import {
   Button,
-  Select,
   TextField,
-  MenuItem,
-  FormControl,
   FormControlLabel,
-  InputLabel,
   Checkbox,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from "@mui/material";
-// import { NodeModel } from "../types/types";
-// import {NodeModel,
-// } from "@minoru/react-dnd-treeview";
 import styles from "./styles/AddDialog.module.css";
 import { CustomData } from "../../../types/TreeTypes";
 import { NodeModel } from "../../../types/TreeTypes";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../modules/redux";
 
 type Props = {
   parentId: NodeModel["id"];
-  // tree: NodeModel[];
   onClose: () => void;
   onSubmit: (e: Omit<NodeModel<CustomData>, "id">) => void;
 };
@@ -41,7 +33,6 @@ export const AddDialog: React.FC<Props> = (props) => {
   const [order, setOrder] = useState(() => {
     return tree.filter((element) => props.parentId === element.parent).length; //해당 부모의 자식의 수가 order(최하위배치 )
   });
-  // const [order,setOrder] = useState(-1);
 
   console.log("parent is : " + props.parentId);
 

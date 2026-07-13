@@ -1,5 +1,4 @@
 import React from "react";
-// import { NodeModel } from "@minoru/react-dnd-treeview";
 import { NodeModel } from "../../../types/TreeTypes";
 import styles from "./styles/Placeholder.module.css";
 
