@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import { Tooltip } from "@mui/joy";
+import Tooltip from "@mui/material/Tooltip";
 import { useState, useEffect } from "react";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { MenuGridInfoProps } from "..";
@@ -30,6 +30,7 @@ import menuInfoData from "../../../assets/menuInfo.mock.json";
 import { useDispatch } from "react-redux";
 import { updateMainTreeNode } from "../../../modules/redux/mainTrees";
 import { addHistory } from "../../../modules/redux/history";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
   const defaultSelectedNode = {
@@ -59,6 +60,37 @@ export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
 
   const description: string[] = menuInfoData.description.slice(0, -1);
   const descTitle: string[] = menuInfoData.property.slice(0, -1);
+
+  const getParenthesesText = (value: unknown): string | null => {
+    if (typeof value !== "string") {
+      return null;
+    }
+
+    const match = value.match(/\(([^)]+)\)/);
+    return match ? match[1] : null;
+  };
+
+  const removeParenthesesText = (value: unknown): string => {
+    if (value === undefined || value === null) {
+      return "";
+    }
+
+    return String(value).replace(/\s*\([^)]*\)/, "");
+  };
+
+  const renderEditableRow = (
+    label: string | undefined,
+    valueCell: React.ReactNode
+  ) => (
+    <TableRow style={{ height: "45px" }}>
+      <TableCell align="left" sx={{ maxWidth: 100 }}>
+        {label}
+      </TableCell>
+      <TableCell align="left" sx={{ width: "fit-content", minWidth: 300 }}>
+        {valueCell}
+      </TableCell>
+    </TableRow>
+  );
 
   //수정모드 -> 저장하기를 누르면 (others.id & sid 를 쌍으로 전송)
   const [sid, setSid] = useState<string>(others.id ?? "");
@@ -176,7 +208,7 @@ export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
       );
     }
 
-    //add history
+    //add
     const changeHistories = [
       { property: "id", before: others.id, after: sid },
       { property: "path", before: others.path, after: spath },
@@ -240,12 +272,230 @@ export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
     setSMetaData(event.target.value);
   };
 
-  //   useEffect(() => {
-  //     //showAlert가 true로 바뀌면
-  //     // 알림을 띄우고
-  //     // 데이터를 ''로 초기화
-  //     // 그 뒤 flase로 다시 변경
-  //   }, [showAlert]);
+  const editableRows = [
+    {
+      label: description.at(0),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={sid}
+          variant="standard"
+          onChange={handleChangeId}
+        />
+      ),
+    },
+    {
+      label: description.at(1),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={spath}
+          variant="standard"
+          onChange={handleChangePath}
+        />
+      ),
+    },
+    {
+      label: description.at(2),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={sname}
+          variant="standard"
+          onChange={handleChangeName}
+        />
+      ),
+    },
+    {
+      label: description.at(3),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={sicon}
+          variant="standard"
+          onChange={handleChangeIcon}
+        />
+      ),
+    },
+    {
+      label: description.at(4),
+      valueCell: (
+        <FormControl variant="standard" sx={{ minWidth: 120 }}>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={ivisible.toString()}
+            onChange={handleChangeVisible}
+            label="Show"
+          >
+            <MenuItem value={0}> 0:hide </MenuItem>
+            <MenuItem value={1}> 1:show </MenuItem>
+          </Select>
+        </FormControl>
+      ),
+    },
+    {
+      label: description.at(5),
+      valueCell: (
+        <FormControl variant="standard" sx={{ minWidth: 120 }}>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={itype.toString()}
+            onChange={handleChangeType}
+            label="Type"
+          >
+            <MenuItem value={0}> 0:메뉴항목 </MenuItem>
+            <MenuItem value={1}> 1:서브메뉴 </MenuItem>
+            <MenuItem value={2}> 2:확장메뉴 </MenuItem>
+          </Select>
+        </FormControl>
+      ),
+    },
+    {
+      label: description.at(6),
+      valueCell: (
+        <>
+          <FormControl variant="standard" sx={{ minWidth: 120 }}>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={ipermission.toString()}
+              onChange={handleChangePermissionLevel}
+              label="Permission"
+            >
+              <MenuItem value={0}> 0:public </MenuItem>
+              <MenuItem value={1}> 1:basic </MenuItem>
+              <MenuItem value={5}> 5:read-only </MenuItem>
+              <MenuItem value={6}> 6:admin </MenuItem>
+              <MenuItem value={-1}> others </MenuItem>
+            </Select>
+          </FormControl>
+          {ipermission === -1 && (
+            <TextField
+              size="small"
+              id="standard-basic"
+              placeholder={"enter the value."}
+              variant="standard"
+              value={ipermission}
+              onChange={handleChangePermissionText}
+            />
+          )}
+        </>
+      ),
+    },
+    {
+      label: description.at(7),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={sinitialData}
+          variant="standard"
+          onChange={handleChangeInitialData}
+        />
+      ),
+    },
+    {
+      label: description.at(8),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={shelpPath}
+          variant="standard"
+          onChange={handleChangeHelpPath}
+        />
+      ),
+    },
+    {
+      label: description.at(9),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={sshortcutName}
+          variant="standard"
+          onChange={handleChangeShortcutName}
+        />
+      ),
+    },
+    {
+      label: description.at(10),
+      valueCell: (
+        <FormControl variant="standard" sx={{ minWidth: 120 }}>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={shideShortcut}
+            onChange={handleChangeHideShortCut}
+            label="showQuick"
+          >
+            <MenuItem value={""}> - </MenuItem>
+            <MenuItem value={"0"}> 0: show </MenuItem>
+            <MenuItem value={"1"}> 1: hide </MenuItem>
+          </Select>
+        </FormControl>
+      ),
+    },
+    {
+      label: description.at(11),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={sFlags}
+          variant="standard"
+          onChange={handleChangeFlags}
+        />
+      ),
+    },
+    {
+      label: description.at(12),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={ssearchName}
+          variant="standard"
+          onChange={handleChangeSearchName}
+        />
+      ),
+    },
+    {
+      label: description.at(13),
+      valueCell: (
+        <FormControl variant="standard" sx={{ minWidth: 120 }}>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={sExternalPath}
+            onChange={handleChangeExternalPath}
+            label="addPath"
+          >
+            <MenuItem value={""}> disable </MenuItem>
+            <MenuItem value={"1"}> 1: enable </MenuItem>
+          </Select>
+        </FormControl>
+      ),
+    },
+    {
+      label: description.at(14),
+      valueCell: (
+        <TextField
+          size="small"
+          id="standard-basic"
+          value={sMetaData}
+          variant="standard"
+          onChange={handleChangeMetaData}
+        />
+      ),
+    },
+  ];
 
   useEffect(() => {
     setSid(others.id ?? "");
@@ -297,315 +547,48 @@ export default function MenuInfoGrid({ selectedNode }: MenuGridInfoProps) {
                 <TableRow
                   style={{ backgroundColor: "#f5f5f5", height: "35px" }}
                 >
-                  <TableCell>Column 1</TableCell>
-                  <TableCell>Column 2</TableCell>
+                  <TableCell>Property</TableCell>
+                  <TableCell>Value</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {modifyMode ? (
                   <>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(0)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={sid}
-                          variant="standard"
-                          onChange={handleChangeId}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(1)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={spath}
-                          variant="standard"
-                          onChange={handleChangePath}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(2)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={sname}
-                          variant="standard"
-                          onChange={handleChangeName}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(3)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={sicon}
-                          variant="standard"
-                          onChange={handleChangeIcon}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(4)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <FormControl variant="standard" sx={{ minWidth: 120 }}>
-                          <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={ivisible.toString()}
-                            onChange={handleChangeVisible}
-                            label="Show"
-                          >
-                            <MenuItem value={0}> 0:hide </MenuItem>
-                            <MenuItem value={1}> 1:show </MenuItem>
-                          </Select>
-                        </FormControl>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(5)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <FormControl variant="standard" sx={{ minWidth: 120 }}>
-                          <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={itype.toString()}
-                            onChange={handleChangeType}
-                            label="Type"
-                          >
-                            <MenuItem value={0}> 0:메뉴항목 </MenuItem>
-                            <MenuItem value={1}> 1:서브메뉴 </MenuItem>
-                            <MenuItem value={2}> 2:확장메뉴 </MenuItem>
-                          </Select>
-                        </FormControl>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(6)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <FormControl variant="standard" sx={{ minWidth: 120 }}>
-                          <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={ipermission.toString()}
-                            onChange={handleChangePermissionLevel}
-                            label="Permission"
-                          >
-                            <MenuItem value={0}> 0:public </MenuItem>
-                            <MenuItem value={1}> 1:basic </MenuItem>
-                            <MenuItem value={5}> 5:read-only </MenuItem>
-                            <MenuItem value={6}> 6:admin </MenuItem>
-                            <MenuItem value={-1}> others </MenuItem>
-                          </Select>
-                        </FormControl>
-                        {ipermission === -1 && (
-                          <TextField
-                            size="small"
-                            id="standard-basic"
-                            placeholder={"enter the value."}
-                            variant="standard"
-                            value={ipermission}
-                            onChange={handleChangePermissionText}
-                          />
+                    {editableRows.map((row, index) => (
+                      <React.Fragment key={`editable-row-${index}`}>
+                        {renderEditableRow(
+                          removeParenthesesText(row.label),
+                          row.valueCell
                         )}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(7)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={sinitialData}
-                          variant="standard"
-                          onChange={handleChangeInitialData}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(8)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={shelpPath}
-                          variant="standard"
-                          onChange={handleChangeHelpPath}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(9)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={sshortcutName}
-                          variant="standard"
-                          onChange={handleChangeShortcutName}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(10)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <FormControl variant="standard" sx={{ minWidth: 120 }}>
-                          <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={shideShortcut}
-                            onChange={handleChangeHideShortCut}
-                            label="showQuick"
-                          >
-                            <MenuItem value={""}> - </MenuItem>
-                            <MenuItem value={"0"}> 0: show </MenuItem>
-                            <MenuItem value={"1"}> 1: hide </MenuItem>
-                          </Select>
-                        </FormControl>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(11)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={sFlags}
-                          variant="standard"
-                          onChange={handleChangeFlags}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(12)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={ssearchName}
-                          variant="standard"
-                          onChange={handleChangeSearchName}
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(13)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <FormControl variant="standard" sx={{ minWidth: 120 }}>
-                          <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={sExternalPath}
-                            onChange={handleChangeExternalPath}
-                            label="addPath"
-                          >
-                            <MenuItem value={""}> disable </MenuItem>
-                            <MenuItem value={"1"}> 1: enable </MenuItem>
-                          </Select>
-                        </FormControl>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow style={{ height: "45px" }}>
-                      <TableCell align="left" sx={{ maxWidth: 100 }}>
-                        {description.at(14)}
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ width: "fit-content", minWidth: 300 }}
-                      >
-                        <TextField
-                          size="small"
-                          id="standard-basic"
-                          value={sMetaData}
-                          variant="standard"
-                          onChange={handleChangeMetaData}
-                        />
-                      </TableCell>
-                    </TableRow>
+                      </React.Fragment>
+                    ))}
                   </>
                 ) : (
                   <>
                     {Object.values(others).map((e, index) => (
                       <TableRow style={{ height: "45px" }}>
                         <TableCell align="left" sx={{ maxWidth: 100 }}>
-                          {description.at(index)}
+                          <span>
+                            {removeParenthesesText(description.at(index))}
+                          </span>
+                          {getParenthesesText(description.at(index)) && (
+                            <Tooltip
+                              title={
+                                getParenthesesText(description.at(index)) ?? ""
+                              }
+                              arrow
+                            >
+                              <HelpOutlineIcon
+                                fontSize="small"
+                                sx={{
+                                  marginLeft: 0.5,
+                                  verticalAlign: "middle",
+                                  cursor: "help",
+                                  color: "warning.main",
+                                }}
+                              />
+                            </Tooltip>
+                          )}
                         </TableCell>
                         <TableCell
                           align="left"
