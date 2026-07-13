@@ -12,6 +12,9 @@ import HistoryGrid from "./components/HistoryGrid";
 import CommentView from "./components/CommentView";
 import GmailTreeView from "./components/StyledTreeItem";
 import { useSelector } from "react-redux";
+import { Fab, Tooltip } from "@mui/material";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { downloadMenuInfoJson } from "../../modules/util/menuParser";
 
 //TreeFilter로 넘기는 Props
 export type TreeFilterProps = {
@@ -111,11 +114,20 @@ export default function MainPage() {
     [data, selectedKey]
   );
 
+  const handleExportMenuInfo = () => {
+    if (!data) {
+      return;
+    }
+
+    downloadMenuInfoJson(data, "menuInfo.exported.json");
+  };
+
   return (
     <div className="main-container">
       <div className="start">
         <Header />
       </div>
+
       <Container
         component={Paper}
         className="main-content"
@@ -136,6 +148,22 @@ export default function MainPage() {
           </div>
         </div>
       </Container>
+
+      <Tooltip title="Export menu file">
+        <Fab
+          color="primary"
+          aria-label="export menu file"
+          onClick={handleExportMenuInfo}
+          sx={{
+            position: "fixed",
+            right: 24,
+            bottom: 24,
+            zIndex: 1000,
+          }}
+        >
+          <FileDownloadIcon />
+        </Fab>
+      </Tooltip>
 
       <div className="footer">
         <Footer />

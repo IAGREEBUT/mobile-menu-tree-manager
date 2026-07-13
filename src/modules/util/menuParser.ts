@@ -25,6 +25,44 @@ export type MenuInfoJsonFile = {
   menus: RawMenuItem[];
 };
 
+const MENU_DESCRIPTION = [
+  "Menu ID",
+  "Screen path",
+  "Menu name",
+  "Icon name",
+  "Visibility flag (0: hidden, 1: visible)",
+  "Menu type (0: menu item, 1: submenu, 2: expanded menu)",
+  "Permission level (0: public, 1: basic, 5: read-only, 6: admin)",
+  "Initial screen data",
+  "Help path",
+  "Shortcut name",
+  "Shortcut hidden flag (0: visible, 1: hidden)",
+  "Menu flags",
+  "Search Name",
+  "External path",
+  "Additional metadata",
+  "Children",
+];
+
+const MENU_PROPERTY = [
+  "id",
+  "path",
+  "name",
+  "icon",
+  "visible",
+  "type",
+  "permissionLevel",
+  "initialData",
+  "helpPath",
+  "shortcutName",
+  "hideShortcut",
+  "flags",
+  "searchName",
+  "externalPath",
+  "metadata",
+  "children",
+];
+
 const ROOT_MENU_KEY = "0";
 
 function isRawMenuChildren(
@@ -121,4 +159,55 @@ export function getPropertyWithoutChildren(
   menuInfoJson: MenuInfoJsonFile
 ): string[] {
   return menuInfoJson.property.slice(0, -1);
+}
+
+export function serializeMenuInfoNode(node: menuInfo): RawMenuItem {
+  return [
+    node.id ?? "",
+    node.path ?? "",
+    node.name ?? "",
+    node.icon ?? "",
+    node.visible ?? 0,
+    node.type ?? 0,
+    node.permissionLevel ?? 0,
+    node.initialData ?? "",
+    node.helpPath ?? "",
+    node.shortcutName ?? "",
+    String(node.hideShortcut ?? ""),
+    node.flags ?? "",
+    node.searchName ?? "",
+    node.externalPath ?? "",
+    node.metadata ?? "",
+    node.childInfo && node.childInfo.length > 0
+      ? node.childInfo.map((child) => serializeMenuInfoNode(child))
+      : "",
+  ];
+}
+
+export function createMenuInfoJsonFromTree(root: menuInfo): MenuInfoJsonFile {
+  return {
+    description: MENU_DESCRIPTION,
+    property: MENU_PROPERTY,
+    menus: root.childInfo?.map((child) => serializeMenuInfoNode(child)) ?? [],
+  };
+}
+
+export function createMenuInfoTextFromTree(root: menuInfo): string {
+  return JSON.stringify(createMenuInfoJsonFromTree(root), null, 2);
+}
+
+export function downloadMenuInfoJson(
+  root: menuInfo,
+  fileName = "menuInfo.exported.json"
+): void {
+  const text = createMenuInfoTextFromTree(root);
+  const blob = new Blob([text], { type: "application/json;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = fileName;
+  link.click();
+
+  URL.revokeObjectURL(url);
 }
