@@ -251,7 +251,6 @@ function EditView() {
               sx={{
                 px: 2.5,
                 textTransform: "none",
-                boxShadow: "0 8px 18px rgba(37, 99, 235, 0.25)",
               }}
             >
               APPLY CHANGES

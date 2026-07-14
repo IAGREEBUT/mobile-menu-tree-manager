@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import {
+  Box,
   Button,
-  TextField,
-  FormControlLabel,
   Checkbox,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControlLabel,
+  TextField,
+  Typography,
 } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import styles from "./styles/AddDialog.module.css";
-import { CustomData } from "../../../types/TreeTypes";
-import { NodeModel } from "../../../types/TreeTypes";
+import { CustomData, NodeModel } from "../../../types/TreeTypes";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../modules/redux";
+import { MAINBLUE } from "../../../types/colorCode";
 
 type Props = {
   parentId: NodeModel["id"];
@@ -27,109 +30,232 @@ export const AddDialog: React.FC<Props> = (props) => {
   );
 
   const [text, setText] = useState("");
-  const [fileType, setFileType] = useState("text");
-  const [parent, setParent] = useState(props.parentId);
+  const [parent] = useState(props.parentId);
   const [droppable, setDroppable] = useState(false);
-  const [order, setOrder] = useState(() => {
-    return tree.filter((element) => props.parentId === element.parent).length; //해당 부모의 자식의 수가 order(최하위배치 )
+
+  const [order] = useState(() => {
+    return tree.filter((element) => props.parentId === element.parent).length;
   });
 
-  console.log("parent is : " + props.parentId);
-
-  const handleChangeText = (e: any) => {
-    setText(e.target.value);
+  const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
   };
 
-  const handleChangeParent = (e: any) => {
-    setParent(Number(e.target.value));
+  const handleChangeDroppable = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setDroppable(event.target.checked);
   };
 
-  const handleChangeDroppable = (e: any) => {
-    setDroppable(e.target.checked);
-  };
+  const handleSubmit = () => {
+    const trimmedText = text.trim();
 
-  const handleChangeFileType = (e: any) => {
-    setFileType(e.target.value);
-  };
+    if (!trimmedText) {
+      return;
+    }
 
-  // const handleSubmit = () => {
-  //   props.onSubmit
-  //   props.onClose
-  // }
+    props.onSubmit({
+      text: trimmedText,
+      parent,
+      droppable,
+      data: {
+        order,
+      },
+    });
+
+    props.onClose();
+  };
 
   return (
-    <Dialog open={true} onClose={props.onClose}>
-      <DialogTitle>Add New Menu</DialogTitle>
-      <DialogContent className={styles.content}>
-        <div>
-          <TextField
-            label="Menu Name"
-            onChange={handleChangeText}
-            value={text}
-          />
-        </div>
-        {/* <div>
-          <FormControl className={styles.select}>
-            <InputLabel>Parent</InputLabel>
-            <Select label="Parent" onChange={handleChangeParent} value={parent}>
-              <MenuItem value={0}>(root)</MenuItem>
-              {props.tree
-                .filter((node) => node.droppable === true)
-                .map((node) => (
-                  <MenuItem key={node.id} value={node.id}>
-                    {node.text}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
-        </div> */}
-        <div>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={droppable}
-                onChange={handleChangeDroppable}
-                color="primary"
-              />
-            }
-            label="Allow Child Menus"
-          />
-        </div>
-        {/* {!droppable && (
-          <div>
-            <FormControl className={styles.select}>
-              <InputLabel>File type</InputLabel>
-              <Select
-                label="FileType"
-                onChange={handleChangeFileType}
-                value={fileType}
-              >
-                <MenuItem value="text">TEXT</MenuItem>
-                <MenuItem value="csv">CSV</MenuItem>
-                <MenuItem value="image">IMAGE</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        )} */}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={props.onClose}>Cancel</Button>
-        <Button
-          disabled={text === ""}
-          onClick={() => {
-            props.onSubmit({
-              text,
-              parent,
-              droppable,
-              data: {
-                order,
-              },
-            });
-
-            props.onClose(); //추가하고 나서 닫아야함
+    <Dialog
+      open
+      onClose={props.onClose}
+      maxWidth="xs"
+      fullWidth
+      PaperProps={{
+        sx: {
+          borderRadius: 4,
+          overflow: "hidden",
+          boxShadow: "0 24px 80px rgba(15, 23, 42, 0.22)",
+        },
+      }}
+    >
+      <DialogTitle
+        sx={{
+          px: 3,
+          pt: 3,
+          pb: 2.25,
+          borderBottom: "1px solid #e5e7eb",
+          background:
+            "linear-gradient(135deg, #eff6ff 0%, #ffffff 58%, #f8fafc 100%)",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1.5,
           }}
         >
-          Submit
+          <Box
+            sx={{
+              width: 42,
+              height: 42,
+              flexShrink: 0,
+              borderRadius: 2.5,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#ffffff",
+              backgroundColor: MAINBLUE,
+              boxShadow: "0 8px 18px rgba(37, 99, 235, 0.24)",
+            }}
+          >
+            <AddCircleOutlineIcon fontSize="small" />
+          </Box>
+
+          <Box>
+            <Typography
+              component="h2"
+              sx={{
+                fontSize: 20,
+                fontWeight: 800,
+                color: "#111827",
+                lineHeight: 1.2,
+              }}
+            >
+              Add New Menu
+            </Typography>
+          </Box>
+        </Box>
+      </DialogTitle>
+
+      <DialogContent
+        className={styles.content}
+        sx={{
+          px: 3,
+          py: 3,
+          display: "flex",
+          flexDirection: "column",
+          gap: 2.25,
+          backgroundColor: "#ffffff",
+        }}
+      >
+        <Box sx={{ py: 1 }}>
+          <Typography
+            component="label"
+            htmlFor="new-menu-name"
+            sx={{
+              display: "block",
+              mb: 0.75,
+              fontSize: 13,
+              fontWeight: 700,
+              color: "#374151",
+            }}
+          >
+            Menu Name
+          </Typography>
+
+          <TextField
+            id="new-menu-name"
+            placeholder="Enter menu name"
+            value={text}
+            onChange={handleChangeText}
+            fullWidth
+            size="small"
+            autoFocus
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2.5,
+                backgroundColor: "#ffffff",
+
+                "&.Mui-focused fieldset": {
+                  borderColor: MAINBLUE,
+                },
+              },
+            }}
+          />
+        </Box>
+
+        <Box>
+          <FormControlLabel
+            sx={{
+              alignItems: "flex-start",
+              m: 0,
+              width: "100%",
+
+              "& .MuiCheckbox-root": {
+                mt: -0.4,
+                color: "#9ca3af",
+
+                "&.Mui-checked": {
+                  color: MAINBLUE,
+                },
+              },
+            }}
+            control={
+              <Checkbox checked={droppable} onChange={handleChangeDroppable} />
+            }
+            label={
+              <Box sx={{ pt: 0.2 }}>
+                <Typography
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: "#374151",
+                  }}
+                >
+                  Allow Child Menus
+                </Typography>
+
+                <Typography
+                  sx={{
+                    mt: 0.25,
+                    fontSize: 12,
+                    color: "#6b7280",
+                  }}
+                >
+                  Enable this option if the new item can contain nested menus.
+                </Typography>
+              </Box>
+            }
+          />
+        </Box>
+      </DialogContent>
+
+      <DialogActions
+        sx={{
+          px: 3,
+          py: 2,
+          gap: 1,
+          borderTop: "1px solid #e5e7eb",
+          backgroundColor: "#ffffff",
+        }}
+      >
+        <Button
+          onClick={props.onClose}
+          sx={{
+            px: 2.25,
+            color: "#374151",
+            fontWeight: 700,
+            textTransform: "none",
+          }}
+        >
+          Cancel
+        </Button>
+
+        <Button
+          variant="contained"
+          disabled={text.trim() === ""}
+          onClick={handleSubmit}
+          sx={{
+            px: 2.75,
+            fontWeight: 700,
+            textTransform: "none",
+            backgroundColor: MAINBLUE,
+          }}
+        >
+          Add Menu
         </Button>
       </DialogActions>
     </Dialog>

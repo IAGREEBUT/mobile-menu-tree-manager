@@ -15,6 +15,12 @@ export const BLUE100 = "#1e40af";
 //orange color
 export const ORNAGE20 = "#F0B26B";
 
+//red
+export const DANGER_RED = "#dc2626";
+
+//yello
+export const ALERT_YELLOW = "#f59e0b";
+
 //black
 export const BLACK100 = "#48535B";
 export const BLACK80 = "#84888B";
