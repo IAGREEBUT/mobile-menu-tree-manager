@@ -8,6 +8,7 @@ This project visualizes legacy mobile app menu configuration data as a tree stru
 > The original internal project included backend persistence, database-backed history, and company-specific menu data.  
 > This public version uses anonymized mock data and focuses on frontend UI/UX, state management, and data transformation logic.
 
+</br></br>
 ---
 
 ## Overview
@@ -24,6 +25,7 @@ In the original workflow, menu configuration was managed through structured data
 - JSON export from the current frontend state
 
 The goal of this project is to demonstrate how complex legacy configuration data can be transformed into a more maintainable and user-friendly admin interface.
+</br></br>
 
 ---
 
@@ -48,6 +50,7 @@ Legacy menu configuration was difficult to review directly because the data was 
 ```
 > full version of mock data could be find src/assets/menuInfo.mock.json
 
+</br>
 Manual configuration updates caused several practical issues:
 
 - The array-based format made the menu hierarchy difficult to understand.
@@ -59,13 +62,16 @@ Manual configuration updates caused several practical issues:
 
 
 To make the project publicly shareable, all company-specific data was replaced with anonymized mock data.
-<img width="876" height="695" alt="main" src="https://github.com/user-attachments/assets/8262df0e-028d-453b-a30c-0e6d27f68cbc" />
+<p align="center">
+  <img src="./public/overview_changed.gif" alt="Overview Demo" width="500" />
+</p>
 
+</br></br>
 ---
 
 ## Project Scope
-
 This repository is a **Rebuild Lite** version of the original internal project.
+</br>
 
 ### Included in this rebuild
 
@@ -78,6 +84,7 @@ This repository is a **Rebuild Lite** version of the original internal project.
 - Demo change history
 - JSON export
 - Anonymized mock menu data
+</br>
 
 ### Not included in this rebuild
 
@@ -91,9 +98,12 @@ This repository is a **Rebuild Lite** version of the original internal project.
 In the original internal version, menu changes were persisted through a spring boot backend server and mysql database.  
 In this public rebuild, changes are stored only in frontend state during the current session.
 
+</br></br>
 ---
 
 ## Tech Stack
+
+</br>
 
 ### Frontend
 
@@ -105,22 +115,32 @@ In this public rebuild, changes are stored only in frontend state during the cur
   <img src="https://img.shields.io/badge/react--dnd--treeview-4B5563?style=for-the-badge" alt="react-dnd-treeview" />
 </p>
 
+</br>
+
 ### Data
 
 - Anonymized JSON menu data
 - Redux state for session-only editing
 - JSON export for the edited menu tree
 
+</br></br>
+
 ---
 
 ## Main Features
+
+</br>
 
 ### 1. Menu Tree Visualization
 
 The app parses anonymized legacy menu configuration data and renders it as an interactive tree view.
 Users can browse, expand, collapse, and search menu items.
 
+<p align="center">
+  <img src="./public/overview_changed.gif" alt="Overview Demo" width="500" />
+</p>
 
+</br></br>
 
 ---
 
@@ -145,6 +165,11 @@ Users can modify menu properties from the detail panel.
 When a property is changed, change history automatically stacked so users can track change history.
 > The edit flow is designed to simulate the original internal workflow while keeping this rebuild frontend-only.
 
+<p align="center">
+  <img src="./public/editing_menu_detail_changed.gif" alt="Menu Detail Edit Demo" width="500" />
+</p>
+
+</br></br>
 
 ---
 
@@ -155,6 +180,12 @@ The edit page supports drag-and-drop menu reordering.
 This allows users to preview changes to the menu hierarchy and item order.
 
 > In this rebuild version, drag-and-drop changes are for frontend demonstration purposes only and are not persisted to a backend database.
+
+<p align="center">
+  <img src="./public/edit_order.gif" alt="Tree DND Demo" width="500" />
+</p>
+
+</br></br>
 
 ---
 
@@ -167,6 +198,31 @@ Users can create a new menu item by entering a menu name and selecting whether t
 This feature demonstrates a safer way to manage menu structure changes through UI interactions instead of manually editing the raw configuration file.
 
 > In this rebuild version, add/delete changes are handled in frontend state for demonstration purposes only and are not persisted to a backend database.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img
+        src="./public/add_menu.gif"
+        alt="Add New Menu Demo"
+        width="300"
+      />
+      <br />
+      <sub><b>Add New Menu</b></sub>
+    </td>
+    <td align="center">
+      <img
+        src="./public/delete_menu.gif"
+        alt="Menu Delete Demo"
+        width="300"
+      />
+      <br />
+      <sub><b>Delete Menu</b></sub>
+    </td>
+  </tr>
+</table>
+
+</br></br>
 
 ---
 
@@ -184,9 +240,35 @@ When menu properties are updated, changed fields can be recorded as history entr
 
 This demonstrates how the original internal tool tracked menu changes.
 
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img
+        src="./public/history_view.png"
+        alt="History view"
+        width="300"
+      />
+      <br />
+      <sub><b>History Section</b></sub>
+    </td>
+    <td align="center">
+      <img
+        src="./public/editing_menu_detail_changed.gif"
+        alt="Add New Menu Demo"
+        width="300"
+      />
+      <br />
+      <sub><b>History added automatically</b></sub>
+    </td>
+  </tr>
+</table>
+
+</br></br>
+
 ---
 
-### 7. Comment Demo
+### 6. Comment Demo
 
 The comment panel demonstrates a review workflow for menu items.
 
@@ -194,13 +276,21 @@ Users can add comments to a selected menu item during the current session.
 
 Comments are stored in Redux state and reset after refresh.
 
+<p align="center">
+  <img src="./public/add_comment.gif" alt="Add Comment Demo" width="500" />
+</p>
+
+</br></br>
+
 ---
 
-### 8. JSON Export
+### 7. JSON Export
 
 The current Redux menu state can be exported as a JSON file.
 
 The export function converts the edited tree data back into the legacy menu configuration format.
+
+</br></br>
 
 ---
 
@@ -208,6 +298,8 @@ The export function converts the edited tree data back into the legacy menu conf
 
 The original menu configuration uses an indexed array-based structure, which is difficult to read and edit directly.
 This rebuild includes parser utilities to convert the raw configuration into UI-friendly data structures.
+
+</br></br>
 
 ### Main Menu Parser
 
@@ -219,6 +311,8 @@ This parsed structure is used for:
 - Updating menu properties
 - Exporting the current menu state
 
+</br></br>
+
 ### Edit Menu Parser
 
 Converts the raw menu configuration into a flat `NodeModel` array used by the drag-and-drop edit page.
@@ -228,6 +322,8 @@ This structure is used for:
 - Drag-and-drop reordering
 - Parent-child relationship handling
 - Menu add/delete interactions
+
+</br></br>
 
 ### Export Parser
 
@@ -249,9 +345,13 @@ Updated frontend state
 JSON export
 ```
 
+</br></br>
+
 ## Live Demo
 
 You can try the deployed demo here: Coming soon
+
+</br></br>
 
 ## Local Setup
 
