@@ -63,7 +63,7 @@ Manual configuration updates caused several practical issues:
 
 To make the project publicly shareable, all company-specific data was replaced with anonymized mock data.
 <p align="center">
-  <img src="./public/overview_changed.gif" alt="Overview Demo" width="500" />
+  <img src="./public/images/overview_changed.gif" alt="Overview Demo" width="500" />
 </p>
 
 </br></br>
@@ -137,7 +137,7 @@ The app parses anonymized legacy menu configuration data and renders it as an in
 Users can browse, expand, collapse, and search menu items.
 
 <p align="center">
-  <img src="./public/overview_changed.gif" alt="Overview Demo" width="500" />
+  <img src="./public/images/overview_changed.gif" alt="Overview Demo" width="500" />
 </p>
 
 </br></br>
@@ -166,7 +166,7 @@ When a property is changed, change history automatically stacked so users can tr
 > The edit flow is designed to simulate the original internal workflow while keeping this rebuild frontend-only.
 
 <p align="center">
-  <img src="./public/editing_menu_detail_changed.gif" alt="Menu Detail Edit Demo" width="500" />
+  <img src="./public/images/editing_menu_detail_changed.gif" alt="Menu Detail Edit Demo" width="500" />
 </p>
 
 </br></br>
@@ -182,7 +182,7 @@ This allows users to preview changes to the menu hierarchy and item order.
 > In this rebuild version, drag-and-drop changes are for frontend demonstration purposes only and are not persisted to a backend database.
 
 <p align="center">
-  <img src="./public/edit_order.gif" alt="Tree DND Demo" width="500" />
+  <img src="./public/images/edit_order.gif" alt="Tree DND Demo" width="500" />
 </p>
 
 </br></br>
@@ -203,7 +203,7 @@ This feature demonstrates a safer way to manage menu structure changes through U
   <tr>
     <td align="center">
       <img
-        src="./public/add_menu.gif"
+        src="./public/images/add_menu.gif"
         alt="Add New Menu Demo"
         width="300"
       />
@@ -212,7 +212,7 @@ This feature demonstrates a safer way to manage menu structure changes through U
     </td>
     <td align="center">
       <img
-        src="./public/delete_menu.gif"
+        src="./public/images/delete_menu.gif"
         alt="Menu Delete Demo"
         width="300"
       />
@@ -245,7 +245,7 @@ This demonstrates how the original internal tool tracked menu changes.
   <tr>
     <td align="center">
       <img
-        src="./public/history_view.png"
+        src="./public/images/history_view.png"
         alt="History view"
         width="300"
       />
@@ -254,7 +254,7 @@ This demonstrates how the original internal tool tracked menu changes.
     </td>
     <td align="center">
       <img
-        src="./public/editing_menu_detail_changed.gif"
+        src="./public/images/editing_menu_detail_changed.gif"
         alt="Add New Menu Demo"
         width="300"
       />
@@ -277,7 +277,7 @@ Users can add comments to a selected menu item during the current session.
 Comments are stored in Redux state and reset after refresh.
 
 <p align="center">
-  <img src="./public/add_comment.gif" alt="Add Comment Demo" width="500" />
+  <img src="./public/images/add_comment.gif" alt="Add Comment Demo" width="500" />
 </p>
 
 </br></br>
@@ -290,6 +290,9 @@ The current Redux menu state can be exported as a JSON file.
 
 The export function converts the edited tree data back into the legacy menu configuration format.
 
+<p align="center">
+  <img src="./public/images/export_chnage.gif" alt="Export .json Demo" width="500" />
+</p>
 </br></br>
 
 ---
