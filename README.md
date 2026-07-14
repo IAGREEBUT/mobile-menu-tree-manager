@@ -8,8 +8,11 @@ This project visualizes legacy mobile app menu configuration data as a tree stru
 > The original internal project included backend persistence, database-backed history, and company-specific menu data.  
 > This public version uses anonymized mock data and focuses on frontend UI/UX, state management, and data transformation logic.
 
-</br></br>
+</br>
+
 ---
+
+</br>
 
 ## Overview
 
@@ -25,9 +28,11 @@ In the original workflow, menu configuration was managed through structured data
 - JSON export from the current frontend state
 
 The goal of this project is to demonstrate how complex legacy configuration data can be transformed into a more maintainable and user-friendly admin interface.
-</br></br>
+</br>
 
 ---
+
+</br>
 
 ## Background
 
@@ -66,8 +71,12 @@ To make the project publicly shareable, all company-specific data was replaced w
   <img src="./public/images/overview_changed.gif" alt="Overview Demo" width="500" />
 </p>
 
-</br></br>
+
+</br>
+
 ---
+
+</br>
 
 ## Project Scope
 This repository is a **Rebuild Lite** version of the original internal project.
@@ -98,8 +107,11 @@ This repository is a **Rebuild Lite** version of the original internal project.
 In the original internal version, menu changes were persisted through a spring boot backend server and mysql database.  
 In this public rebuild, changes are stored only in frontend state during the current session.
 
-</br></br>
+</br>
+
 ---
+
+</br>
 
 ## Tech Stack
 
@@ -123,9 +135,11 @@ In this public rebuild, changes are stored only in frontend state during the cur
 - Redux state for session-only editing
 - JSON export for the edited menu tree
 
-</br></br>
+</br>
 
 ---
+
+</br>
 
 ## Main Features
 
@@ -140,9 +154,11 @@ Users can browse, expand, collapse, and search menu items.
   <img src="./public/images/overview_changed.gif" alt="Overview Demo" width="500" />
 </p>
 
-</br></br>
+</br>
 
 ---
+
+</br>
 
 ### 2. Menu Detail View & Editing Menu Detail
 
@@ -169,9 +185,11 @@ When a property is changed, change history automatically stacked so users can tr
   <img src="./public/images/editing_menu_detail_changed.gif" alt="Menu Detail Edit Demo" width="500" />
 </p>
 
-</br></br>
+</br>
 
 ---
+
+</br>
 
 ### 3. Drag-and-Drop Tree Editing
 
@@ -185,9 +203,11 @@ This allows users to preview changes to the menu hierarchy and item order.
   <img src="./public/images/edit_order.gif" alt="Tree DND Demo" width="500" />
 </p>
 
-</br></br>
+</br>
 
 ---
+
+</br>
 
 ### 4. Menu Editing (Add & Delete)
 
@@ -205,7 +225,7 @@ This feature demonstrates a safer way to manage menu structure changes through U
       <img
         src="./public/images/add_menu.gif"
         alt="Add New Menu Demo"
-        width="300"
+        width="350"
       />
       <br />
       <sub><b>Add New Menu</b></sub>
@@ -214,7 +234,7 @@ This feature demonstrates a safer way to manage menu structure changes through U
       <img
         src="./public/images/delete_menu.gif"
         alt="Menu Delete Demo"
-        width="300"
+        width="350"
       />
       <br />
       <sub><b>Delete Menu</b></sub>
@@ -222,9 +242,11 @@ This feature demonstrates a safer way to manage menu structure changes through U
   </tr>
 </table>
 
-</br></br>
+</br>
 
 ---
+
+</br>
 
 ### 5. Change History Demo
 
@@ -247,7 +269,7 @@ This demonstrates how the original internal tool tracked menu changes.
       <img
         src="./public/images/history_view.png"
         alt="History view"
-        width="300"
+        width="350"
       />
       <br />
       <sub><b>History Section</b></sub>
@@ -256,7 +278,7 @@ This demonstrates how the original internal tool tracked menu changes.
       <img
         src="./public/images/editing_menu_detail_changed.gif"
         alt="Add New Menu Demo"
-        width="300"
+        width="350"
       />
       <br />
       <sub><b>History added automatically</b></sub>
@@ -264,9 +286,11 @@ This demonstrates how the original internal tool tracked menu changes.
   </tr>
 </table>
 
-</br></br>
+</br>
 
 ---
+
+</br>
 
 ### 6. Comment Demo
 
@@ -280,9 +304,11 @@ Comments are stored in Redux state and reset after refresh.
   <img src="./public/images/add_comment.gif" alt="Add Comment Demo" width="500" />
 </p>
 
-</br></br>
+</br>
 
 ---
+
+</br>
 
 ### 7. JSON Export
 
@@ -293,9 +319,12 @@ The export function converts the edited tree data back into the legacy menu conf
 <p align="center">
   <img src="./public/images/export_chnage.gif" alt="Export .json Demo" width="500" />
 </p>
-</br></br>
+
+</br>
 
 ---
+
+</br>
 
 ## Parser Logic
 
