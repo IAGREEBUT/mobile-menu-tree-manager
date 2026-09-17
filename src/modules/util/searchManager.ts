@@ -23,7 +23,9 @@ export function getManagerById(id: number): managerInfo {
 
 export function findManagerProfileById(id: number): string | undefined {
   const manager = findManagerById(id);
-  const profile = manager?.profile?.trim();
+  const profile = manager?.profile?.trim()
+    ? `${process.env.PUBLIC_URL}${manager.profile}`
+    : undefined;
 
   return profile || undefined;
 }

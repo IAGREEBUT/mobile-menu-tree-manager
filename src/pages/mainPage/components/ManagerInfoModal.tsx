@@ -28,7 +28,9 @@ export const ManagerInfoModal = ({ id, size, isBold }: ManagerInfoProps) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const profileSrc = manager.profile?.trim() || undefined;
+  const profileSrc = manager.profile?.trim()
+    ? `${process.env.PUBLIC_URL}${manager.profile}`
+    : undefined;
   const role = manager.role?.trim() || "Project Member";
 
   const modalStyle = {
