@@ -9,7 +9,7 @@ import EditPage from "./pages/editPage";
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename="/mobile-menu-tree-manager">
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
           <Route path="/edit" element={<EditPage />}></Route>
