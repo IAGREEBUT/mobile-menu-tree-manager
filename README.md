@@ -381,7 +381,7 @@ JSON export
 
 ## Live Demo
 
-You can try the deployed demo here: Coming soon
+[**→ Try the Live Demo**](https://iagreebut.github.io/mobile-menu-tree-manager/)
 
 </br></br>
 
